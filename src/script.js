@@ -1,11 +1,7 @@
 import "./style.css";
 import * as THREE from "three";
-import vShader from "./shaders/vertex.glsl";
-import fShader from "./shaders/fragment.glsl";
-
-const loader = new THREE.TextureLoader();
-const texture = loader.load("./images/background.jpg");
-
+import vShader from "./shaders/Lines/vertex.glsl";
+import fShader from "./shaders/Lines/fragment.glsl";
 
 //Scene
 const scene = new THREE.Scene();
@@ -42,14 +38,11 @@ scene.add(camera);
 const geo = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight);
 const material = new THREE.ShaderMaterial({
   uniforms: {
-    u_texture: {
-      value: texture
-    },
     u_time: {
       value: 0
     },
-    u_resolution: { // Add this uniform for resolution
-      value: new THREE.Vector2(window.innerWidth, window.innerHeight) // Assuming you're using window dimensions
+    u_resolution: {
+      value: new THREE.Vector2(window.innerWidth, window.innerHeight)
     }
   },
   vertexShader: vShader,
@@ -57,6 +50,24 @@ const material = new THREE.ShaderMaterial({
 });
 const mesh = new THREE.Mesh(geo, material);
 scene.add(mesh);
+// New plane for a stream embed
+/*
+const streamDimension = {
+  width: 1500,
+  height: 750
+};
+const streamGeo = new THREE.PlaneGeometry(streamDimension.width, streamDimension.height);
+const streamMaterial = new THREE.MeshBasicMaterial({
+  color: "#000000"
+});
+const streamMesh = new THREE.Mesh(streamGeo, streamMaterial);
+
+streamMesh.position.z = 0;
+streamMesh.position.x = -streamDimension.width / 4.2;
+streamMesh.position.y = streamDimension.height / 12;
+
+scene.add(streamMesh);
+*/
 
 //Renderer
 const canvas = document.querySelector(".draw");

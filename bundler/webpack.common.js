@@ -50,7 +50,6 @@ module.exports = {
           },
         ],
       },
-
       {
         test: /\.(glsl|vs|fs|frag)$/,
         exclude: /node_modules/,
